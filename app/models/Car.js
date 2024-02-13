@@ -2,6 +2,7 @@ import { AppState } from "../AppState.js"
 
 export class Car {
   constructor (data) {
+    // NOTE data._id and data.id are the same value here
     this.id = data.id || data._id
     this.make = data.make
     this.model = data.model
@@ -11,8 +12,14 @@ export class Car {
     this.description = data.description || ''
     this.color = data.color || ''
     this.engineType = data.engineType
+
+    // NOTE the id of the person who created this. Same as creator.id or creator._id
     this.creatorId = data.creatorId
+
+    // NOTE creator object that can be drilled into to access name, picture, or id
     this.creator = data.creator
+
+    // NOTE dateStrings from API can be converted into Date objects
     this.createdAt = new Date(data.createdAt)
     this.updatedAt = new Date(data.updatedAt)
   }
@@ -49,6 +56,7 @@ export class Car {
   }
 
   get ColorString() {
+    // NOTE empty string is falsy
     if (!this.color) {
       return ''
     }
@@ -58,10 +66,12 @@ export class Car {
   }
 
   get DeleteButton() {
+    // NOTE If we are not logged in OR if we are not the creator of this car object
     if (AppState.account == null || this.creatorId != AppState.account.id) {
       return ''
     }
 
+    // NOTE shows delete button only for the creator of the car
     return `<button onclick="app.CarsController.removeCar('${this.id}')" class="btn btn-danger">Delete Car</button>`
   }
 }
