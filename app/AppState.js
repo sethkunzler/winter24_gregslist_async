@@ -15,6 +15,8 @@ class ObservableAppState extends EventEmitter {
    * @type {Car[]}
    */
   cars = []
+
+  
   /**
    * @type {House[]}
    */
